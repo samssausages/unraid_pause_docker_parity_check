@@ -13,7 +13,7 @@ then check if container is paused and resume (Can disable if you want to restart
 only unpause if script paused container
 ```
 
-##Considerations:
+## Considerations:
 -Does not consider if parity check is paused
 -A paused parity will trigger the script
 
