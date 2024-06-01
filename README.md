@@ -14,7 +14,7 @@ then check if container is paused and resume (Can disable if you want to restart
 ## Considerations:
 -Does not consider if parity check is paused
 
--A paused parity will trigger the script
+-A paused parity will be seen as a running parity
 
 -no logic in place to account for if you paused the container manually, it will unpause any paused container on the list
 
