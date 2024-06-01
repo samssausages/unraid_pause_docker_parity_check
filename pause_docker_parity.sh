@@ -1,14 +1,18 @@
 #!/bin/bash
 
-# Define an array of Docker containers to manage.  Can add more, or remove, as you see fit.
+# Define an array of Docker containers to manage, can add our remove as needed
 containers_to_manage=(
                     "deluge"
                     "sabnzbd"
                     )
-####################### Not much else to config below here #######################
-##################################################################################
 
-# Fetch the mdResyncPos variable value to see if parity check is running, remove quotes
+# Variable to control auto-resuming of containers, optins are true or false.
+auto_resume=true
+
+###########################No need to edit below this line###########################
+#####################################################################################
+
+# Fetch the mdResyncPos variable value to determine if parity check is running, removing quotes
 parityCheckStatus=$(cat /var/local/emhttp/var.ini | grep mdResyncPos | cut -d "=" -f2 | tr -d '"')
 
 echo "Checking parity check status..."
@@ -27,8 +31,8 @@ if [[ "$parityCheckStatus" != "0" ]]; then
             echo "Cannot pause $container: It is $container_status or does not exist."
         fi
     done
-else
-    echo "No parity check in progress. Unpausing containers..."
+elif [[ "$auto_resume" == true ]]; then
+    echo "No parity check in progress. Checking for containers to unpause..."
     # Loop through the array and unpause each container
     for container in "${containers_to_manage[@]}"; do
         # Check if container is paused
@@ -40,4 +44,6 @@ else
             echo "Cannot unpause $container: It is $container_status or does not exist."
         fi
     done
+else
+    echo "Auto-resume is disabled. Containers will remain paused."
 fi
