@@ -16,6 +16,7 @@ only unpause if script paused container
 ## Considerations:
 -Does not consider if parity check is paused
 -A paused parity will trigger the script
+-could get confused if you manually pause/unpause, haven't tested
 
 V0.9
 Initial Commit
